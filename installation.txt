@@ -1,0 +1,7 @@
+git submodule add https://github.com/gulrak/filesystem
+git submodule add https://github.com/fpagliughi/sockpp
+
+mkdir build
+cd build
+cmake ..
+make

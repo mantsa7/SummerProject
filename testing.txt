@@ -1,0 +1,6 @@
+Simply run
+./test_ftp
+to carry out 3 main test of the server
+
+The tests might fail on the first try, because the server program hasn't launched yet, even though the test program waits for 2 seconds.
+In that case just try to launch the tests again.

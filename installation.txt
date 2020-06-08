@@ -1,5 +1,7 @@
 git submodule add https://github.com/gulrak/filesystem
 git submodule add https://github.com/fpagliughi/sockpp
+git commit -m "add submodules"
+git push
 
 mkdir build
 cd build

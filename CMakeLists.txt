@@ -6,9 +6,10 @@ set(CMAKE_CXX_FLAGS -pthread)
 
 include_directories(/usr/local/include)
 include_directories(${CMAKE_CURRENT_LIST_DIR})
-add_executable(cpp_ftp main.cpp argparse.hpp globals.hpp netbuffer.hpp ftp.hpp utils.hpp ftptransfer.h)
 
-add_executable(test_ftp testftp.cpp globals.hpp netbuffer.hpp utils.hpp)
+add_executable(cpp_ftp globals.cpp utils.cpp ftptransfer.cpp argparse.hpp ftp.cpp main.cpp)
+
+add_executable(test_ftp globals.cpp utils.cpp ftptransfer.cpp ftp.cpp testftp.cpp )
 
 add_subdirectory(filesystem)
 add_subdirectory(sockpp)

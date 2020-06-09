@@ -1,8 +1,8 @@
 #include <sockpp/tcp_connector.h>
 #include <sockpp/tcp_acceptor.h>
 #include <sockpp/tcp_socket.h>
-#include "netbuffer.hpp"
-#include "utils.hpp"
+#include "globals.h"
+#include "utils.h"
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
@@ -86,7 +86,7 @@ int main(int, char**) {
 	tryt(not (code == "227"), "couldn't setup passive connection on server");
 	auto tokens = splitByDelim(address, ",");
 	tryt(tokens.size() != 6, "invalid address returned by pasv");
-	sockpp::inet_address passiveDataAddr("127.0.0.1", std::stoi(tokens[4])*256+std::stoi(tokens[5]));
+	sockpp::inet_address passiveDataAddr("127.0.0.1", std::stoi(tokens[4].data())*256+std::stoi(tokens[5].data()));
 	cout << "\tPassive connection address is " << passiveDataAddr.to_string() << endl;
 	cout << "\\Test 1 Passed/" << endl;
 	cout << "Test 2. Directory creation and path manipulation" << endl;

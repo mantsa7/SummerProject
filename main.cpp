@@ -10,22 +10,18 @@
 #include <algorithm>
 
 // header with various global variables
-#include "globals.hpp"
+
 // header with function for parsing arguments
 #include "argparse.hpp"
-// header with buffer for reading line-by-line CRLF
-#include "netbuffer.hpp"
-// header with util logger class as well as helper functions and helper filesystem library
-#include "utils.hpp"
 // header with the main ftp structure and functions related to sending data over ftp and handling ftp commands
 // rfc 959 compliant
-#include "ftp.hpp"
+#include "ftp.h"
 
 // all available commands for the ftp server
 // command - function map
 // so when we receive a command we just call it from this map
-const std::unordered_map<std::string,
-                   std::function<response(FTP&, const std::string)>>
+inline const std::unordered_map<std::string,
+                   std::function<response(FTP&, std::string_view)>>
                    funcMap = {{"USER", userFTP}, {"PASS", passFTP}, {"REIN", reinFTP}, {"QUIT", quitFTP},
 							  {"TYPE", typeFTP}, {"MODE", modeFTP}, {"STRU", struFTP}, {"SYST", systFTP},
 							  {"PASV", pasvFTP}, {"PORT", portFTP}, {"HELP", helpFTP}, {"NOOP", noopFTP},
@@ -88,7 +84,7 @@ int main(int argc, char* argv[]) {
 	std::cout << "Baseline FTP server " << serverVersion << std::endl;
 
 	// parse the arguments
-	const auto [serverPort, logFileName, dirPath, needToClose] = parseArgs(argc, const_cast<const char **>(argv));
+	const auto [serverPort, logFileName, dirPath, needToClose] = parseArgs(argc, argv);
 
 	if (needToClose)
 		return 0;

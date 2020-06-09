@@ -1,11 +1,11 @@
 #ifndef CPP_FTP_ARGPARSE_HPP
 #define CPP_FTP_ARGPARSE_HPP
 
+#include "globals.h"
 #include <sockpp/socket.h>
 #include <iostream>
-#include "globals.hpp"
 
-std::tuple<in_port_t, std::string, std::string, bool> parseArgs(int argc, const char *argv[]) {
+inline std::tuple<in_port_t, std::string, std::string, bool> parseArgs(int argc, char *argv[]) {
 	// options for program launch
 	typedef std::pair<std::string, std::string> optionPair;
 	static const optionPair portOption = {"-p", "--port"};
@@ -97,8 +97,8 @@ std::tuple<in_port_t, std::string, std::string, bool> parseArgs(int argc, const 
 			}
 			// find the port value
 			// it will be the first value without a named option
-			std::function<const char **(const char **)> findPort;
-			findPort = [=, &findPort](const char **location) -> const char** {
+			std::function<char **(char **)> findPort;
+			findPort = [=, &findPort](char **location) ->char** {
 				// if we have reached the end then there is no port option
 				if (location == (argv + argc))
 					return nullptr;
@@ -116,7 +116,7 @@ std::tuple<in_port_t, std::string, std::string, bool> parseArgs(int argc, const 
 				return location;
 			};
 			// try to find the port starting from second argument
-			const char ** portTmp = findPort(argv + 1);
+			char ** portTmp = findPort(argv + 1);
 			// no port
 			if (portTmp == nullptr)
 				return {defaultPort, false};
@@ -140,4 +140,3 @@ std::tuple<in_port_t, std::string, std::string, bool> parseArgs(int argc, const 
 }
 
 #endif //CPP_FTP_ARGPARSE_HPP
-
